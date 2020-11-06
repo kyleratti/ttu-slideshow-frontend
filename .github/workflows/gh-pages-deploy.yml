@@ -62,3 +62,8 @@ jobs:
           BRANCH: gh-pages
           FOLDER: dist
           CLEAN: true
+      - name: Clean up build artifacts 🧹
+        uses: geekyeggo/delete-artifact@v1
+        with:
+          name: |
+            build

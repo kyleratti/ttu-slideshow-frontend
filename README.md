@@ -1,2 +1,1 @@
-# ttu-slideshow-frontend
-The frontend for the ttu-slideshow application
+# ttu-slideshow-backend

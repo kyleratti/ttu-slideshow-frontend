@@ -1,7 +1,7 @@
 name: CI/CD
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - "src/**"
       - "package.json"
@@ -9,7 +9,7 @@ on:
       - "webpack.config.js"
       - ".github/workflows/**"
   pull_request:
-    branches: [master]
+    branches: [main]
     paths:
       - "src/**"
       - "package.json"
@@ -34,18 +34,18 @@ jobs:
         run: |
           npm run build
       - name: Semantic release
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         run: npx semantic-release
       - name: Save dist 📨
         uses: actions/upload-artifact@v2
-        if: github.ref == 'refs/heads/master'
+        if: github.ref == 'refs/heads/main'
         with:
           name: build
           path: |
             dist/
   deploy:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     needs: [build]
     steps:
       - name: Checkout 🛎️

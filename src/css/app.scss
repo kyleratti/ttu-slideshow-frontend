@@ -54,3 +54,26 @@ code {
 input:read-only {
   background-color: lightgray;
 }
+
+p,
+h1,
+h2 {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+p {
+  max-width: 65ch;
+  font-weight: normal;
+}
+
+.disclaimer {
+  background-color: darkred;
+  padding: 0.1em;
+  margin: 1em 0;
+}
+
+.hide {
+  display: none;
+}

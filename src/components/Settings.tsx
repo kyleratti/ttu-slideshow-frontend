@@ -4,6 +4,8 @@ import React, { SetStateAction } from "react";
 const clamp = (num: number, min: number, max: number) =>
   Math.max(min, Math.min(num, max));
 
+const [minInterval, maxInterval] = [500, 1000 * 20];
+
 type SettingsProps = {
   settings: ISettings;
   setSettings: React.Dispatch<SetStateAction<ISettings>>;
@@ -26,10 +28,15 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings }) => {
             max={1000 * 20}
             min={500}
             defaultValue={settings.interval}
+            step={100}
             onChange={(e) =>
               setSettings({
                 ...settings,
-                interval: clamp(e.target.valueAsNumber, 500, 1000 * 20),
+                interval: clamp(
+                  e.target.valueAsNumber,
+                  minInterval,
+                  maxInterval
+                ),
               })
             }
           />

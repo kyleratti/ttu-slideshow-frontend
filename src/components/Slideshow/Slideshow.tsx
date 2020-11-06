@@ -10,12 +10,30 @@ type SlideshowProps = {
 const Slideshow: React.FC<SlideshowProps> = ({ settings }) => {
   const [images, setImages] = useState<string[]>([]);
   const [imageIndex, setImageIndex] = useState(0);
+  const [nextRotate, setNextRotate] = useState(Date.now());
 
   const [imageInterval, setImageInterval] = useState(settings.interval);
   const [apiUrl, setApiUrl] = useState(settings.apiUrl);
-  const [client, setClient] = useState<w3cwebsocket>(
-    new w3cwebsocket(`ws://${apiUrl}`)
-  );
+  const [client, setClient] = useState<w3cwebsocket | null>();
+
+  // Tick
+  useEffect(() => {
+    const getTimestamp = () => Date.now();
+    const getNextTimestamp = () => Date.now() + imageInterval;
+
+    const tick = () => {
+      if (getTimestamp() <= nextRotate) return;
+
+      console.log(getTimestamp(), nextRotate, "tick");
+
+      setImageIndex(imageIndex >= images.length - 1 ? 0 : imageIndex + 1);
+      setNextRotate(getNextTimestamp());
+    };
+
+    const imageTimer = setInterval(tick, 100);
+
+    return () => clearInterval(imageTimer);
+  }, [nextRotate, imageInterval]);
 
   useEffect(() => {
     setImageInterval(settings.interval);
@@ -27,40 +45,28 @@ const Slideshow: React.FC<SlideshowProps> = ({ settings }) => {
   }, [apiUrl]);
 
   useEffect(() => {
-    let innerImages: string[] = [];
-    let innerIndex = 0;
+    if (imageIndex > images.length - 1) setImageIndex(0);
+  }, [images]);
 
-    const receiveImages = (images: string[]) => {
-      innerImages = images;
-      setImages(images);
-    };
-    const addImage = (image: string) => {
-      console.log("adding", image);
-      innerImages.push(image);
-      setImages([...innerImages]);
-    };
+  const receiveImages = (images: string[]) => {
+    setImages(images);
+  };
 
-    const removeImage = (image: string) => {
-      console.log("removing", image);
-      innerImages.splice(innerImages.indexOf(image), 1);
-      setImages([...innerImages]);
+  const addImage = (image: string) => {
+    console.log(`[ADD] ${image}`);
+    setImages([...images, image]);
+  };
 
-      if (innerIndex > innerImages.length - 1) {
-        setIndex(0);
-      }
-    };
+  const removeImage = (image: string) => {
+    console.log(`[REMOVE] ${image}`);
 
-    const setIndex = (index: number) => {
-      innerIndex = index;
-      setImageIndex(index);
-    };
+    const cloned = [...images];
+    cloned.splice(cloned.indexOf(image), 1);
+    setImages(cloned);
+  };
 
-    const onTick = () => {
-      if (innerImages.length > 1)
-        setIndex(innerIndex >= innerImages.length - 1 ? 0 : innerIndex + 1);
-    };
-
-    setInterval(onTick, imageInterval);
+  useEffect(() => {
+    if (!client) return;
 
     client.onopen = () => {
       console.log(`Web socket opened`);
@@ -95,12 +101,12 @@ const Slideshow: React.FC<SlideshowProps> = ({ settings }) => {
     client.onclose = () => {
       console.log(`Web socket closed`);
     };
-  }, [imageInterval, apiUrl, client]);
+  }, [imageInterval, apiUrl, client, images]);
 
-  let rows = [];
+  let slides = [];
 
   for (let i = 0; i < images.length; i++) {
-    rows.push(
+    slides.push(
       <Slide
         key={i}
         index={i}
@@ -117,7 +123,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ settings }) => {
         Currently rotating <span className="highlight">{images.length}</span>{" "}
         image{images.length !== 1 ? "s" : ""}
       </div>
-      <div>{rows}</div>
+      <div>{slides}</div>
     </div>
   );
 };

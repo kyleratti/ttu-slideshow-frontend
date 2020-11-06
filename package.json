@@ -13,7 +13,7 @@
     "dev": "npm run start",
     "start": "cross-env NODE_ENV=development webpack-dev-server",
     "prebuild": "npm run clean",
-    "build": "webpack",
+    "build": "webpack && echo slideshow.ttu.ratti.me > ./dist/CNAME",
     "predeploy": "npm run build",
     "deploy": "npm run build"
   },

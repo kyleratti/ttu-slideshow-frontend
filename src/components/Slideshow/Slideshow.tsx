@@ -1,15 +1,30 @@
-import React, { useEffect, useState, useRef } from "react";
+import { ISettings, MessageType, SocketMessage } from "@/types";
+import React, { useEffect, useState } from "react";
 import { w3cwebsocket } from "websocket";
-import { SocketMessage, MessageType } from "ttu-slideshow-types";
 import Slide from "./components/Slide";
 
-const CHANGE_INTERVAL = 1000 * 5;
-const API_SERVER = String(process.env.API_SERVER);
-const client = new w3cwebsocket(`ws://${API_SERVER}`);
+type SlideshowProps = {
+  settings: ISettings;
+};
 
-const Slideshow: React.FC = () => {
+const Slideshow: React.FC<SlideshowProps> = ({ settings }) => {
   const [images, setImages] = useState<string[]>([]);
   const [imageIndex, setImageIndex] = useState(0);
+
+  const [imageInterval, setImageInterval] = useState(settings.interval);
+  const [apiUrl, setApiUrl] = useState(settings.apiUrl);
+  const [client, setClient] = useState<w3cwebsocket>(
+    new w3cwebsocket(`ws://${apiUrl}`)
+  );
+
+  useEffect(() => {
+    setImageInterval(settings.interval);
+    setApiUrl(settings.apiUrl);
+  }, [settings]);
+
+  useEffect(() => {
+    setClient(new w3cwebsocket(`ws://${apiUrl}`));
+  }, [apiUrl]);
 
   useEffect(() => {
     let innerImages: string[] = [];
@@ -45,17 +60,17 @@ const Slideshow: React.FC = () => {
         setIndex(innerIndex >= innerImages.length - 1 ? 0 : innerIndex + 1);
     };
 
-    setInterval(onTick, CHANGE_INTERVAL);
+    setInterval(onTick, imageInterval);
 
     client.onopen = () => {
       console.log(`Web socket opened`);
     };
 
-    client.onerror = err => {
+    client.onerror = (err) => {
       console.error(`Error with web socket:`, err);
     };
 
-    client.onmessage = message => {
+    client.onmessage = (message) => {
       try {
         const payload = JSON.parse(String(message.data)) as SocketMessage;
 
@@ -80,7 +95,7 @@ const Slideshow: React.FC = () => {
     client.onclose = () => {
       console.log(`Web socket closed`);
     };
-  }, []);
+  }, [imageInterval, apiUrl, client]);
 
   let rows = [];
 

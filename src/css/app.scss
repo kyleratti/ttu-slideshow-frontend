@@ -42,3 +42,15 @@ code {
 .slide img {
   image-orientation: from-image;
 }
+
+.input {
+  margin: 0.25em 0;
+}
+
+.input input {
+  margin-left: 0.5em;
+}
+
+input:read-only {
+  background-color: lightgray;
+}

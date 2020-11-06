@@ -1,6 +1,9 @@
 import { ISettings } from "@/types";
 import React, { SetStateAction } from "react";
 
+const clamp = (num: number, min: number, max: number) =>
+  Math.max(min, Math.min(num, max));
+
 type SettingsProps = {
   settings: ISettings;
   setSettings: React.Dispatch<SetStateAction<ISettings>>;
@@ -21,12 +24,12 @@ const Settings: React.FC<SettingsProps> = ({ settings, setSettings }) => {
           <input
             type="number"
             max={1000 * 20}
-            min={1000 * 0.5}
+            min={500}
             defaultValue={settings.interval}
             onChange={(e) =>
               setSettings({
                 ...settings,
-                interval: e.target.valueAsNumber,
+                interval: clamp(e.target.valueAsNumber, 500, 1000 * 20),
               })
             }
           />

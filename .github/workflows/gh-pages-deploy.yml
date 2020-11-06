@@ -8,6 +8,7 @@ on:
       - "package-lock.json"
       - "webpack.config.js"
       - ".github/workflows/**"
+      - ".releaserc.json"
   pull_request:
     branches: [main]
     paths:
@@ -16,6 +17,7 @@ on:
       - "package-lock.json"
       - "webpack.config.js"
       - ".github/workflows/**"
+      - ".releaserc.json"
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NODE_ENV: PRODUCTION

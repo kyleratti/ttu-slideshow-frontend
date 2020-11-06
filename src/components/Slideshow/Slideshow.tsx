@@ -104,6 +104,7 @@ const Slideshow: React.FC<SlideshowProps> = ({ settings }) => {
       <Slide
         key={i}
         index={i}
+        apiUrl={apiUrl}
         imageName={images[i]}
         active={i === imageIndex}
       />

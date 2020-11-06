@@ -4,17 +4,23 @@ import { useEffect } from "react";
 type Props = {
   imageName: string;
   index: number;
+  apiUrl: string;
   active?: boolean;
 };
 
-const Slide: React.FC<Props> = ({ imageName, index, active = false }) => {
+const Slide: React.FC<Props> = ({
+  imageName,
+  index,
+  apiUrl,
+  active = false,
+}) => {
   useEffect(() => {}, [active]);
 
   return (
     <div className={"slide " + (active ? "active" : "inactive")}>
       <label>{index + 1}</label>
       <img
-        src={`http://${process.env.API_SERVER}/img/${imageName}`}
+        src={`http://${apiUrl}/img/${imageName}`}
         alt="Automatically loaded image"
         decoding="async"
       />

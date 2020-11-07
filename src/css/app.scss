@@ -87,3 +87,31 @@ p {
 .hide {
   display: none;
 }
+
+.clientStatus {
+  margin-left: 1ch;
+}
+
+.clientStatus-ok {
+  color: lime;
+}
+
+.clientStatus-error {
+  color: red;
+}
+
+.clientStatus-connecting {
+  color: darken($color: lime, $amount: 0.5);
+}
+
+.clientStatus-disconnected {
+  color: crimson;
+}
+
+.clientStatus-unknown {
+  color: gold;
+}
+
+.clientStatus-preparing {
+  color: gray;
+}

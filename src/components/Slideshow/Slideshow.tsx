@@ -8,13 +8,11 @@ type SlideshowProps = {
 };
 
 const Slideshow: React.FC<SlideshowProps> = ({ settings }) => {
-  // const [images, setImages] = useState<string[]>([]);
   const [imageIndex, setImageIndex] = useState(0);
   const [nextRotate, setNextRotate] = useState(Date.now());
 
   const [imageInterval, setImageInterval] = useState(settings.interval);
   const [apiUrl, setApiUrl] = useState(settings.apiUrl);
-  // const [client, setClient] = useState<w3cwebsocket | null>();
   const backendContext = useContext(BackendConnectionContext);
 
   // Tick
@@ -44,11 +42,6 @@ const Slideshow: React.FC<SlideshowProps> = ({ settings }) => {
     setImageInterval(settings.interval);
     setApiUrl(settings.apiUrl);
   }, [settings]);
-
-  // useEffect(() => {
-  //   if (backendContext.setClient)
-  //     backendContext.setClient(new w3cwebsocket(`ws://${apiUrl}`));
-  // }, [apiUrl]);
 
   useEffect(() => {
     if (!backendContext.images)

@@ -72,6 +72,16 @@ p {
   background-color: darkred;
   padding: 0.1em;
   margin: 1em 0;
+
+  a {
+    color: gold;
+    font-weight: bold;
+  }
+
+  a:hover,
+  a:active {
+    color: cornflowerblue;
+  }
 }
 
 .hide {

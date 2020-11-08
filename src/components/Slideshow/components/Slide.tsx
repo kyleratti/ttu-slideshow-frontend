@@ -1,8 +1,8 @@
 import * as React from "react";
+import { useEffect } from "react";
 
 type Props = {
   imageName: string;
-  timestamp: Date;
   index: number;
   apiUrl: string;
   active?: boolean;
@@ -10,24 +10,22 @@ type Props = {
 
 const Slide: React.FC<Props> = ({
   imageName,
-  timestamp,
   index,
   apiUrl,
   active = false,
-}) => (
-  <div className={"slide " + (active ? "active" : "inactive")}>
-    <label>{index + 1}</label>
-    <img
-      src={`http://${apiUrl}/img/${imageName}`}
-      alt={imageName}
-      decoding="async"
-    />
-    <div className="timestamp no-fullscreen">
-      Added {timestamp.getHours().toString().padStart(2, "0")}:
-      {timestamp.getMinutes().toString().padStart(2, "0")}:
-      {timestamp.getSeconds().toString().padStart(2, "0")}
+}) => {
+  useEffect(() => {}, [active]);
+
+  return (
+    <div className={"slide " + (active ? "active" : "inactive")}>
+      <label>{index + 1}</label>
+      <img
+        src={`http://${apiUrl}/img/${imageName}`}
+        alt="Automatically loaded image"
+        decoding="async"
+      />
     </div>
-  </div>
-);
+  );
+};
 
 export default Slide;

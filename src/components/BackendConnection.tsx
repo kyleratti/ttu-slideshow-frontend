@@ -1,5 +1,5 @@
 import { BackendConnectionContext } from "@/context/BackendConnectionContext";
-import { ClientStatus } from "@/types";
+import { ClientStatus, Image } from "@/types";
 import React, { useState } from "react";
 import { w3cwebsocket } from "websocket";
 
@@ -8,7 +8,7 @@ export const BackendConnection: React.FC = ({ children }) => {
   const [clientStatus, setClientStatus] = useState<ClientStatus>(
     ClientStatus.INITAL
   );
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<Image[]>([]);
 
   return (
     <BackendConnectionContext.Provider

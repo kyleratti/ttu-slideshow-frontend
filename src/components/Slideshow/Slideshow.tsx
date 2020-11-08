@@ -58,7 +58,8 @@ const Slideshow: React.FC<SlideshowProps> = ({ settings }) => {
         key={i}
         index={i}
         apiUrl={apiUrl}
-        imageName={backendContext.images[i]}
+        imageName={backendContext.images[i].fileName}
+        timestamp={backendContext.images[i].timestamp}
         active={i === imageIndex}
       />
     );

@@ -1,5 +1,5 @@
 import { BackendConnectionContext } from "@/context/BackendConnectionContext";
-import { ClientStatus, MessageType, SocketMessage } from "@/types";
+import { ClientStatus, Image, MessageType, SocketMessage } from "@/types";
 import React, { useContext, useEffect } from "react";
 import { w3cwebsocket } from "websocket";
 import { SettingsProps } from "../Settings";
@@ -20,7 +20,7 @@ export const SettingsForm: React.FC<SettingsProps> = ({
     if (!backendContext.setClient) throw "backendContext setClient not ready";
 
     const receiveImages = (images: string[]) => {
-      backendContext.setImages!(images);
+      backendContext.setImages!(images.map((fileName) => new Image(fileName)));
     };
 
     const client = new w3cwebsocket(`ws://${settings.apiUrl}`);

@@ -1,4 +1,4 @@
-import { ClientStatus } from "@/types";
+import { ClientStatus, Image } from "@/types";
 import { createContext } from "react";
 import { w3cwebsocket } from "websocket";
 
@@ -13,8 +13,8 @@ type BackendConnectionProps = {
     | React.Dispatch<React.SetStateAction<ClientStatus>>
     | undefined;
 
-  images: string[];
-  setImages: React.Dispatch<React.SetStateAction<string[]>> | undefined;
+  images: Image[];
+  setImages: React.Dispatch<React.SetStateAction<Image[]>> | undefined;
 };
 
 export const BackendConnectionContext = createContext<BackendConnectionProps>({

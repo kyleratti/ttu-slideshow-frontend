@@ -10,14 +10,36 @@
   transition: none !important;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2 {
+  margin: 0;
+}
+
+h2 {
+  color: lightgray;
+}
+
 body {
   font-weight: bold;
   background-color: black;
   color: white;
+  letter-spacing: 0.04em;
+}
+
+.wrapper {
+  width: max(80%, 800px);
+  min-width: 800px;
+  margin: 0 auto;
 }
 
 code {
   font-weight: normal;
+  background-color: rgb(80, 80, 80);
+  padding: 0.1em 0.25em;
 }
 
 #settings {
@@ -86,10 +108,6 @@ p {
 
 .hide {
   display: none;
-}
-
-.clientStatus {
-  margin-left: 1ch;
 }
 
 .clientStatus-ok {

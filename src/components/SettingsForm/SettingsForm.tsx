@@ -107,7 +107,9 @@ export const SettingsForm: React.FC<SettingsProps> = ({
           }
           readOnly
         />
+      </div>
 
+      <div className="input apiStatus">
         <ConnectionStatus />
       </div>
     </form>

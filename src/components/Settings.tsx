@@ -10,7 +10,7 @@ export type SettingsProps = {
 const Settings: React.FC<SettingsProps> = ({ settings, setSettings }) => {
   return (
     <div id="settings" className="no-fullscreen">
-      <h1>Settings</h1>
+      <h2>Settings</h2>
 
       <SettingsForm settings={settings} setSettings={setSettings} />
 

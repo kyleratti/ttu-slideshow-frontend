@@ -1,4 +1,5 @@
 import { ConditionalRender } from "@/components/ConditionalRender";
+import { Heading } from "@/components/Heading";
 import PageContainer from "@/components/PageContainer";
 import Settings from "@/components/Settings";
 import Slideshow from "@/components/Slideshow";
@@ -11,6 +12,8 @@ const SlideshowPage: React.FC = () => {
 
   return (
     <PageContainer>
+      <Heading />
+
       <Settings settings={settings} setSettings={setSettings} />
 
       <ConditionalRender

@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.2.0",
     "@types/react": "^16.14.1",
     "@types/react-dom": "^16.9.10",
     "cross-env": "^7.0.2",

@@ -20,13 +20,13 @@ h2 {
 }
 
 h2 {
-  color: lightgray;
+  color: rgb(68, 68, 68);
 }
 
 body {
   font-weight: bold;
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   letter-spacing: 0.04em;
 }
 
@@ -38,7 +38,7 @@ body {
 
 code {
   font-weight: normal;
-  background-color: rgb(80, 80, 80);
+  background-color: rgb(168, 168, 168);
   padding: 0.1em 0.25em;
 }
 
@@ -55,9 +55,9 @@ code {
 }
 
 .highlight {
-  background-color: yellow;
+  background-color: gold;
   color: black;
-  padding: 0.1em;
+  padding: 0.2em;
   font-weight: normal;
 }
 
